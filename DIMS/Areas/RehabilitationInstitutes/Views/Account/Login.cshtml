@@ -1,0 +1,27 @@
+﻿@model DIMS.BAL.EF.RehabilitationInstitutes
+@{
+    ViewBag.Title = "Login";
+}
+<div class="rehab_login d-flex align-items-center justify-content-center flex-column">
+    @*<h2>Institute Login</h2>*@
+    <form action="AuthenticateLogin" method="post">
+        <h2>Institute Login</h2>
+        <table>
+            <tr>
+                <td>Email</td>
+                <td>@Html.TextBoxFor(model => Model.Email, new { @class = "form-control", @required = "required" })</td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td>
+                    @Html.TextBoxFor(model => model.Password, new { @type = "password", @class = "form-control",  @required = "required" })</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" class="btn btn-primary" value="Login" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>

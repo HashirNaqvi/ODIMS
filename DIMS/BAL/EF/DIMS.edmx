@@ -1,0 +1,551 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DIMS.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DisasterInformation">
+          <Key>
+            <PropertyRef Name="DisasterInformationID" />
+          </Key>
+          <Property Name="DisasterInformationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RehabilitationInstituteID" Type="int" />
+          <Property Name="NDMAUserId" Type="int" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="DisasterDate" Type="datetime" />
+          <Property Name="Address" Type="varchar" MaxLength="50" />
+          <Property Name="LatLong" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="GeneralUser">
+          <Key>
+            <PropertyRef Name="GeneralUserID" />
+          </Key>
+          <Property Name="GeneralUserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NDMAUserID" Type="int" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="150" />
+          <Property Name="Password" Type="varchar" MaxLength="150" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NDMAUser">
+          <Key>
+            <PropertyRef Name="NDMAUserID" />
+          </Key>
+          <Property Name="NDMAUserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="100" />
+          <Property Name="LastName" Type="varchar" MaxLength="100" />
+          <Property Name="Address1" Type="varchar" MaxLength="50" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+          <Property Name="State" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="150" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PublicMessage">
+          <Key>
+            <PropertyRef Name="PublicMessageID" />
+          </Key>
+          <Property Name="PublicMessageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RehabilitationInstituteID" Type="int" />
+          <Property Name="NDMAUserID" Type="int" />
+          <Property Name="Message" Type="varchar(max)" />
+          <Property Name="DatePosted" Type="datetime" />
+        </EntityType>
+        <EntityType Name="RehabilitationInstitutes">
+          <Key>
+            <PropertyRef Name="RehabilitationInstituteID" />
+          </Key>
+          <Property Name="RehabilitationInstituteID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NDMAUserID" Type="int" />
+          <Property Name="InstituteName" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="150" />
+          <Property Name="Phone" Type="int" />
+          <Property Name="Email" Type="varchar" MaxLength="150" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReliefInformation">
+          <Key>
+            <PropertyRef Name="ReliefInformationID" />
+          </Key>
+          <Property Name="ReliefInformationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RehabilitationInstituteID" Type="int" />
+          <Property Name="NDMAUserId" Type="int" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="DateGranted" Type="datetime" />
+          <Property Name="Amount" Type="int" />
+        </EntityType>
+        <Association Name="FK_DisasterInformation_DisasterInformation">
+          <End Role="NDMAUser" Type="Self.NDMAUser" Multiplicity="0..1" />
+          <End Role="DisasterInformation" Type="Self.DisasterInformation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NDMAUser">
+              <PropertyRef Name="NDMAUserID" />
+            </Principal>
+            <Dependent Role="DisasterInformation">
+              <PropertyRef Name="NDMAUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DisasterInformation_DisasterInformation1">
+          <End Role="RehabilitationInstitutes" Type="Self.RehabilitationInstitutes" Multiplicity="0..1" />
+          <End Role="DisasterInformation" Type="Self.DisasterInformation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RehabilitationInstitutes">
+              <PropertyRef Name="RehabilitationInstituteID" />
+            </Principal>
+            <Dependent Role="DisasterInformation">
+              <PropertyRef Name="RehabilitationInstituteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GeneralUser_NDMAUser">
+          <End Role="NDMAUser" Type="Self.NDMAUser" Multiplicity="0..1" />
+          <End Role="GeneralUser" Type="Self.GeneralUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NDMAUser">
+              <PropertyRef Name="NDMAUserID" />
+            </Principal>
+            <Dependent Role="GeneralUser">
+              <PropertyRef Name="NDMAUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PublicMessage_NDMAUser">
+          <End Role="NDMAUser" Type="Self.NDMAUser" Multiplicity="0..1" />
+          <End Role="PublicMessage" Type="Self.PublicMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NDMAUser">
+              <PropertyRef Name="NDMAUserID" />
+            </Principal>
+            <Dependent Role="PublicMessage">
+              <PropertyRef Name="NDMAUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PublicMessage_PublicMessage">
+          <End Role="RehabilitationInstitutes" Type="Self.RehabilitationInstitutes" Multiplicity="0..1" />
+          <End Role="PublicMessage" Type="Self.PublicMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RehabilitationInstitutes">
+              <PropertyRef Name="RehabilitationInstituteID" />
+            </Principal>
+            <Dependent Role="PublicMessage">
+              <PropertyRef Name="RehabilitationInstituteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RehabilitationInstitutes_NDMAUser">
+          <End Role="NDMAUser" Type="Self.NDMAUser" Multiplicity="0..1" />
+          <End Role="RehabilitationInstitutes" Type="Self.RehabilitationInstitutes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NDMAUser">
+              <PropertyRef Name="NDMAUserID" />
+            </Principal>
+            <Dependent Role="RehabilitationInstitutes">
+              <PropertyRef Name="NDMAUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReliefInformation_ReliefInformation">
+          <End Role="NDMAUser" Type="Self.NDMAUser" Multiplicity="0..1" />
+          <End Role="ReliefInformation" Type="Self.ReliefInformation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NDMAUser">
+              <PropertyRef Name="NDMAUserID" />
+            </Principal>
+            <Dependent Role="ReliefInformation">
+              <PropertyRef Name="NDMAUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReliefInformation_ReliefInformation1">
+          <End Role="RehabilitationInstitutes" Type="Self.RehabilitationInstitutes" Multiplicity="0..1" />
+          <End Role="ReliefInformation" Type="Self.ReliefInformation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RehabilitationInstitutes">
+              <PropertyRef Name="RehabilitationInstituteID" />
+            </Principal>
+            <Dependent Role="ReliefInformation">
+              <PropertyRef Name="RehabilitationInstituteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DIMSStoreContainer">
+          <EntitySet Name="DisasterInformation" EntityType="Self.DisasterInformation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GeneralUser" EntityType="Self.GeneralUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NDMAUser" EntityType="Self.NDMAUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PublicMessage" EntityType="Self.PublicMessage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RehabilitationInstitutes" EntityType="Self.RehabilitationInstitutes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReliefInformation" EntityType="Self.ReliefInformation" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_DisasterInformation_DisasterInformation" Association="Self.FK_DisasterInformation_DisasterInformation">
+            <End Role="NDMAUser" EntitySet="NDMAUser" />
+            <End Role="DisasterInformation" EntitySet="DisasterInformation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DisasterInformation_DisasterInformation1" Association="Self.FK_DisasterInformation_DisasterInformation1">
+            <End Role="RehabilitationInstitutes" EntitySet="RehabilitationInstitutes" />
+            <End Role="DisasterInformation" EntitySet="DisasterInformation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GeneralUser_NDMAUser" Association="Self.FK_GeneralUser_NDMAUser">
+            <End Role="NDMAUser" EntitySet="NDMAUser" />
+            <End Role="GeneralUser" EntitySet="GeneralUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PublicMessage_NDMAUser" Association="Self.FK_PublicMessage_NDMAUser">
+            <End Role="NDMAUser" EntitySet="NDMAUser" />
+            <End Role="PublicMessage" EntitySet="PublicMessage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PublicMessage_PublicMessage" Association="Self.FK_PublicMessage_PublicMessage">
+            <End Role="RehabilitationInstitutes" EntitySet="RehabilitationInstitutes" />
+            <End Role="PublicMessage" EntitySet="PublicMessage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RehabilitationInstitutes_NDMAUser" Association="Self.FK_RehabilitationInstitutes_NDMAUser">
+            <End Role="NDMAUser" EntitySet="NDMAUser" />
+            <End Role="RehabilitationInstitutes" EntitySet="RehabilitationInstitutes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReliefInformation_ReliefInformation" Association="Self.FK_ReliefInformation_ReliefInformation">
+            <End Role="NDMAUser" EntitySet="NDMAUser" />
+            <End Role="ReliefInformation" EntitySet="ReliefInformation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReliefInformation_ReliefInformation1" Association="Self.FK_ReliefInformation_ReliefInformation1">
+            <End Role="RehabilitationInstitutes" EntitySet="RehabilitationInstitutes" />
+            <End Role="ReliefInformation" EntitySet="ReliefInformation" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="DIMS" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="DIMSContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DisasterInformation" EntityType="DIMS.DisasterInformation" />
+          <EntitySet Name="NDMAUser" EntityType="DIMS.NDMAUser" />
+          <AssociationSet Name="FK_DisasterInformation_DisasterInformation" Association="DIMS.FK_DisasterInformation_DisasterInformation">
+            <End Role="NDMAUser" EntitySet="NDMAUser" />
+            <End Role="DisasterInformation" EntitySet="DisasterInformation" />
+          </AssociationSet>
+          <EntitySet Name="PublicMessage" EntityType="DIMS.PublicMessage" />
+          <AssociationSet Name="FK_PublicMessage_NDMAUser" Association="DIMS.FK_PublicMessage_NDMAUser">
+            <End Role="NDMAUser" EntitySet="NDMAUser" />
+            <End Role="PublicMessage" EntitySet="PublicMessage" />
+          </AssociationSet>
+          <EntitySet Name="ReliefInformation" EntityType="DIMS.ReliefInformation" />
+          <AssociationSet Name="FK_ReliefInformation_ReliefInformation" Association="DIMS.FK_ReliefInformation_ReliefInformation">
+            <End Role="NDMAUser" EntitySet="NDMAUser" />
+            <End Role="ReliefInformation" EntitySet="ReliefInformation" />
+          </AssociationSet>
+          <EntitySet Name="RehabilitationInstitutes" EntityType="DIMS.RehabilitationInstitutes" />
+          <AssociationSet Name="FK_DisasterInformation_DisasterInformation1" Association="DIMS.FK_DisasterInformation_DisasterInformation1">
+            <End Role="RehabilitationInstitutes" EntitySet="RehabilitationInstitutes" />
+            <End Role="DisasterInformation" EntitySet="DisasterInformation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RehabilitationInstitutes_NDMAUser" Association="DIMS.FK_RehabilitationInstitutes_NDMAUser">
+            <End Role="NDMAUser" EntitySet="NDMAUser" />
+            <End Role="RehabilitationInstitutes" EntitySet="RehabilitationInstitutes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PublicMessage_PublicMessage" Association="DIMS.FK_PublicMessage_PublicMessage">
+            <End Role="RehabilitationInstitutes" EntitySet="RehabilitationInstitutes" />
+            <End Role="PublicMessage" EntitySet="PublicMessage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReliefInformation_ReliefInformation1" Association="DIMS.FK_ReliefInformation_ReliefInformation1">
+            <End Role="RehabilitationInstitutes" EntitySet="RehabilitationInstitutes" />
+            <End Role="ReliefInformation" EntitySet="ReliefInformation" />
+          </AssociationSet>
+          <EntitySet Name="GeneralUser" EntityType="DIMS.GeneralUser" />
+          <AssociationSet Name="FK_GeneralUser_NDMAUser" Association="DIMS.FK_GeneralUser_NDMAUser">
+            <End Role="NDMAUser" EntitySet="NDMAUser" />
+            <End Role="GeneralUser" EntitySet="GeneralUser" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="DisasterInformation">
+          <Key>
+            <PropertyRef Name="DisasterInformationID" />
+          </Key>
+          <Property Name="DisasterInformationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RehabilitationInstituteID" Type="Int32" />
+          <Property Name="NDMAUserId" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DisasterDate" Type="DateTime" Precision="3" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LatLong" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="NDMAUser" Relationship="DIMS.FK_DisasterInformation_DisasterInformation" FromRole="DisasterInformation" ToRole="NDMAUser" />
+          <NavigationProperty Name="RehabilitationInstitutes" Relationship="DIMS.FK_DisasterInformation_DisasterInformation1" FromRole="DisasterInformation" ToRole="RehabilitationInstitutes" />
+        </EntityType>
+        <EntityType Name="NDMAUser">
+          <Key>
+            <PropertyRef Name="NDMAUserID" />
+          </Key>
+          <Property Name="NDMAUserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Address1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DisasterInformation" Relationship="DIMS.FK_DisasterInformation_DisasterInformation" FromRole="NDMAUser" ToRole="DisasterInformation" />
+          <NavigationProperty Name="PublicMessage" Relationship="DIMS.FK_PublicMessage_NDMAUser" FromRole="NDMAUser" ToRole="PublicMessage" />
+          <NavigationProperty Name="ReliefInformation" Relationship="DIMS.FK_ReliefInformation_ReliefInformation" FromRole="NDMAUser" ToRole="ReliefInformation" />
+          <NavigationProperty Name="RehabilitationInstitutes" Relationship="DIMS.FK_RehabilitationInstitutes_NDMAUser" FromRole="NDMAUser" ToRole="RehabilitationInstitutes" />
+          <NavigationProperty Name="GeneralUser" Relationship="DIMS.FK_GeneralUser_NDMAUser" FromRole="NDMAUser" ToRole="GeneralUser" />
+        </EntityType>
+        <Association Name="FK_DisasterInformation_DisasterInformation">
+          <End Type="DIMS.NDMAUser" Role="NDMAUser" Multiplicity="0..1" />
+          <End Type="DIMS.DisasterInformation" Role="DisasterInformation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NDMAUser">
+              <PropertyRef Name="NDMAUserID" />
+            </Principal>
+            <Dependent Role="DisasterInformation">
+              <PropertyRef Name="NDMAUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PublicMessage">
+          <Key>
+            <PropertyRef Name="PublicMessageID" />
+          </Key>
+          <Property Name="PublicMessageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RehabilitationInstituteID" Type="Int32" />
+          <Property Name="NDMAUserID" Type="Int32" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DatePosted" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="NDMAUser" Relationship="DIMS.FK_PublicMessage_NDMAUser" FromRole="PublicMessage" ToRole="NDMAUser" />
+          <NavigationProperty Name="RehabilitationInstitutes" Relationship="DIMS.FK_PublicMessage_PublicMessage" FromRole="PublicMessage" ToRole="RehabilitationInstitutes" />
+        </EntityType>
+        <Association Name="FK_PublicMessage_NDMAUser">
+          <End Type="DIMS.NDMAUser" Role="NDMAUser" Multiplicity="0..1" />
+          <End Type="DIMS.PublicMessage" Role="PublicMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NDMAUser">
+              <PropertyRef Name="NDMAUserID" />
+            </Principal>
+            <Dependent Role="PublicMessage">
+              <PropertyRef Name="NDMAUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ReliefInformation">
+          <Key>
+            <PropertyRef Name="ReliefInformationID" />
+          </Key>
+          <Property Name="ReliefInformationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RehabilitationInstituteID" Type="Int32" />
+          <Property Name="NDMAUserId" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DateGranted" Type="DateTime" Precision="3" />
+          <Property Name="Amount" Type="Int32" />
+          <NavigationProperty Name="NDMAUser" Relationship="DIMS.FK_ReliefInformation_ReliefInformation" FromRole="ReliefInformation" ToRole="NDMAUser" />
+          <NavigationProperty Name="RehabilitationInstitutes" Relationship="DIMS.FK_ReliefInformation_ReliefInformation1" FromRole="ReliefInformation" ToRole="RehabilitationInstitutes" />
+        </EntityType>
+        <Association Name="FK_ReliefInformation_ReliefInformation">
+          <End Type="DIMS.NDMAUser" Role="NDMAUser" Multiplicity="0..1" />
+          <End Type="DIMS.ReliefInformation" Role="ReliefInformation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NDMAUser">
+              <PropertyRef Name="NDMAUserID" />
+            </Principal>
+            <Dependent Role="ReliefInformation">
+              <PropertyRef Name="NDMAUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="RehabilitationInstitutes">
+          <Key>
+            <PropertyRef Name="RehabilitationInstituteID" />
+          </Key>
+          <Property Name="RehabilitationInstituteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NDMAUserID" Type="Int32" />
+          <Property Name="InstituteName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="Int32" />
+          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="DisasterInformation" Relationship="DIMS.FK_DisasterInformation_DisasterInformation1" FromRole="RehabilitationInstitutes" ToRole="DisasterInformation" />
+          <NavigationProperty Name="NDMAUser" Relationship="DIMS.FK_RehabilitationInstitutes_NDMAUser" FromRole="RehabilitationInstitutes" ToRole="NDMAUser" />
+          <NavigationProperty Name="PublicMessage" Relationship="DIMS.FK_PublicMessage_PublicMessage" FromRole="RehabilitationInstitutes" ToRole="PublicMessage" />
+          <NavigationProperty Name="ReliefInformation" Relationship="DIMS.FK_ReliefInformation_ReliefInformation1" FromRole="RehabilitationInstitutes" ToRole="ReliefInformation" />
+        </EntityType>
+        <Association Name="FK_DisasterInformation_DisasterInformation1">
+          <End Type="DIMS.RehabilitationInstitutes" Role="RehabilitationInstitutes" Multiplicity="0..1" />
+          <End Type="DIMS.DisasterInformation" Role="DisasterInformation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RehabilitationInstitutes">
+              <PropertyRef Name="RehabilitationInstituteID" />
+            </Principal>
+            <Dependent Role="DisasterInformation">
+              <PropertyRef Name="RehabilitationInstituteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RehabilitationInstitutes_NDMAUser">
+          <End Type="DIMS.NDMAUser" Role="NDMAUser" Multiplicity="0..1" />
+          <End Type="DIMS.RehabilitationInstitutes" Role="RehabilitationInstitutes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NDMAUser">
+              <PropertyRef Name="NDMAUserID" />
+            </Principal>
+            <Dependent Role="RehabilitationInstitutes">
+              <PropertyRef Name="NDMAUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PublicMessage_PublicMessage">
+          <End Type="DIMS.RehabilitationInstitutes" Role="RehabilitationInstitutes" Multiplicity="0..1" />
+          <End Type="DIMS.PublicMessage" Role="PublicMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RehabilitationInstitutes">
+              <PropertyRef Name="RehabilitationInstituteID" />
+            </Principal>
+            <Dependent Role="PublicMessage">
+              <PropertyRef Name="RehabilitationInstituteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReliefInformation_ReliefInformation1">
+          <End Type="DIMS.RehabilitationInstitutes" Role="RehabilitationInstitutes" Multiplicity="0..1" />
+          <End Type="DIMS.ReliefInformation" Role="ReliefInformation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RehabilitationInstitutes">
+              <PropertyRef Name="RehabilitationInstituteID" />
+            </Principal>
+            <Dependent Role="ReliefInformation">
+              <PropertyRef Name="RehabilitationInstituteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="GeneralUser">
+          <Key>
+            <PropertyRef Name="GeneralUserID" />
+          </Key>
+          <Property Name="GeneralUserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NDMAUserID" Type="Int32" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="NDMAUser" Relationship="DIMS.FK_GeneralUser_NDMAUser" FromRole="GeneralUser" ToRole="NDMAUser" />
+        </EntityType>
+        <Association Name="FK_GeneralUser_NDMAUser">
+          <End Type="DIMS.NDMAUser" Role="NDMAUser" Multiplicity="0..1" />
+          <End Type="DIMS.GeneralUser" Role="GeneralUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NDMAUser">
+              <PropertyRef Name="NDMAUserID" />
+            </Principal>
+            <Dependent Role="GeneralUser">
+              <PropertyRef Name="NDMAUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
+        <Alias Key="Model" Value="DIMS" />
+        <Alias Key="Target" Value="DIMS.Store" />
+        <EntityContainerMapping CdmEntityContainer="DIMSContainer" StorageEntityContainer="DIMSStoreContainer">
+          <EntitySetMapping Name="DisasterInformation">
+            <EntityTypeMapping TypeName="DIMS.DisasterInformation">
+              <MappingFragment StoreEntitySet="DisasterInformation">
+                <ScalarProperty Name="LatLong" ColumnName="LatLong" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="DisasterDate" ColumnName="DisasterDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="NDMAUserId" ColumnName="NDMAUserId" />
+                <ScalarProperty Name="RehabilitationInstituteID" ColumnName="RehabilitationInstituteID" />
+                <ScalarProperty Name="DisasterInformationID" ColumnName="DisasterInformationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NDMAUser">
+            <EntityTypeMapping TypeName="DIMS.NDMAUser">
+              <MappingFragment StoreEntitySet="NDMAUser">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="NDMAUserID" ColumnName="NDMAUserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PublicMessage">
+            <EntityTypeMapping TypeName="DIMS.PublicMessage">
+              <MappingFragment StoreEntitySet="PublicMessage">
+                <ScalarProperty Name="DatePosted" ColumnName="DatePosted" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="NDMAUserID" ColumnName="NDMAUserID" />
+                <ScalarProperty Name="RehabilitationInstituteID" ColumnName="RehabilitationInstituteID" />
+                <ScalarProperty Name="PublicMessageID" ColumnName="PublicMessageID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReliefInformation">
+            <EntityTypeMapping TypeName="DIMS.ReliefInformation">
+              <MappingFragment StoreEntitySet="ReliefInformation">
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="DateGranted" ColumnName="DateGranted" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="NDMAUserId" ColumnName="NDMAUserId" />
+                <ScalarProperty Name="RehabilitationInstituteID" ColumnName="RehabilitationInstituteID" />
+                <ScalarProperty Name="ReliefInformationID" ColumnName="ReliefInformationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RehabilitationInstitutes">
+            <EntityTypeMapping TypeName="DIMS.RehabilitationInstitutes">
+              <MappingFragment StoreEntitySet="RehabilitationInstitutes">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="InstituteName" ColumnName="InstituteName" />
+                <ScalarProperty Name="NDMAUserID" ColumnName="NDMAUserID" />
+                <ScalarProperty Name="RehabilitationInstituteID" ColumnName="RehabilitationInstituteID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GeneralUser">
+            <EntityTypeMapping TypeName="DIMS.GeneralUser">
+              <MappingFragment StoreEntitySet="GeneralUser">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="NDMAUserID" ColumnName="NDMAUserID" />
+                <ScalarProperty Name="GeneralUserID" ColumnName="GeneralUserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

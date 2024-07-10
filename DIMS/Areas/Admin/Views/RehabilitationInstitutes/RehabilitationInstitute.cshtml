@@ -1,0 +1,38 @@
+﻿@model DIMS.BAL.EF.RehabilitationInstitutes
+@{
+    ViewBag.Title = "RehabilitationInstitute";
+}
+    <div class="d-flex align-items-center flex-column">
+        <form action="SaveRehabilitationInstitute" method="post">
+            <h2>Rehabilitation Institute</h2>
+            <table>
+                <tr>
+                    <td>Name</td>
+                    <td>@Html.TextBoxFor(model => Model.InstituteName, new { @class = "form-control", @required = "required" })</td>
+                </tr>
+                <tr>
+                    <td>Address</td>
+                    <td>@Html.TextBoxFor(model => Model.Address , new { @class = "form-control", @required = "required" })</td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>@Html.TextBoxFor(model => Model.Email, new { @class = "form-control", @required = "required" })</td>
+                </tr>
+                <tr>
+                    <td>Password</td>
+                    <td>@Html.TextBoxFor(model => Model.Password, new { @type = "password" , @class = "form-control" , @required = "required" })</td>
+                </tr>
+                <tr>
+                    <td>Active</td>
+                    <td>@Html.CheckBoxFor(model => Model.Active)</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="submit" class="btn btn-primary" value="Save" />
+                        @Html.HiddenFor(model => model.RehabilitationInstituteID)
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>

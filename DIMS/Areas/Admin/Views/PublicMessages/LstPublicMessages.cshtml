@@ -1,0 +1,41 @@
+﻿@model List<DIMS.BAL.EF.PublicMessage>
+@using DIMS.BAL.Extentions;
+@{
+    ViewBag.Title = "LstPublicMessages";
+    var userType = CookieManager.GetCookie(DIMS.BAL.SiteConstants.UserType);
+}
+<h2>Public Messages</h2>
+@if (userType != "3")
+{
+    <button type="button" class="btn btn-dark text-white" onclick="location.href='@Url.Action("PublicMessage", "PublicMessages")'">
+        Add Public Message
+    </button>
+}
+<table class="table">
+    <tbody>
+        <tr>
+            <th>Message</th>
+            <th>Date Posted</th>
+            <th>Actions</th>
+        </tr>
+        @foreach (var I in Model)
+        {
+            <tr>
+                <td>@I.Message</td>
+                <td>@I.DatePosted.Value.ToString("d")</td>
+                <td>
+                    @if (userType != "3")
+                    {
+                        <a href="@Url.Action("PublicMessage", "PublicMessages")?PublicMessageID=@I.PublicMessageID">Edit</a> <span> | </span>
+                        <a href="@Url.Action("DeletePublicMessage", "PublicMessages")?PublicMessageID=@I.PublicMessageID">Delete</a>
+                    }
+                    else if (userType == "3")
+                    {
+                        <a href="@Url.Action("ViewPublicMessage", "PublicMessages")?PublicMessageID=@I.PublicMessageID">View</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

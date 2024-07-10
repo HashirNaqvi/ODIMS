@@ -1,0 +1,22 @@
+﻿@model DIMS.BAL.EF.ReliefInformation
+@{
+    ViewBag.Title = "ReliefInformation";
+}
+
+<h2>Relief Information</h2>
+<button class="btn btn-primary" onclick="location.href='@Url.Action("LstReliefInformation", "ReliefInformation")'">Back</button>
+    <table>
+        <tr>
+            <td>Description: </td>
+            <td>@Html.DisplayFor(model => Model.Description)</td>
+        </tr>
+        <tr>
+            <td>Amount: </td>
+            <td>@Html.DisplayFor(model => Model.Amount)</td>
+        </tr>
+        <tr>
+            <td>Date Granted: </td>
+            <td>@Model.DateGranted.Value.ToString("d")</td>
+        </tr>
+       
+    </table>

@@ -1,0 +1,43 @@
+﻿@model List<DIMS.BAL.EF.DisasterInformation>
+@using DIMS.BAL.Extentions;
+@{
+    ViewBag.Title = "LstDisasterinformation";
+    var userType = CookieManager.GetCookie(DIMS.BAL.SiteConstants.UserType);
+}
+
+<h2>Disaster Information</h2>
+@if (userType != "3")
+{
+    <button type="button" class="btn btn-dark text-white" onclick="location.href='@Url.Action("DisasterInformation", "DisasterInformation")'">
+        Add DisasterInformation
+    </button>
+}
+<table class="table">
+    <tbody>
+        <tr>
+            <th>Description</th>
+            <th>Address</th>
+            <th>Disaster Date</th>
+            <th>Actions</th>
+        </tr>
+        @foreach (var I in Model)
+        {
+            <tr>
+                <td>@I.Description</td>
+                <td>@I.Address</td>
+                <td>@(I.DisasterDate?.ToString("MM/dd/yyyy"))</td>
+                <td>
+                    @if (userType != "3")
+                    {
+                        <a href="@Url.Action("DisasterInformation", "DisasterInformation")?DisasterInformationID=@I.DisasterInformationID">Edit</a><span> | </span>
+                        <a href="@Url.Action("DeleteDisasterInformation", "DisasterInformation")?DisasterInformationID=@I.DisasterInformationID">Delete</a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("ViewDisasterInformation", "DisasterInformation")?DisasterInformationID=@I.DisasterInformationID">View</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

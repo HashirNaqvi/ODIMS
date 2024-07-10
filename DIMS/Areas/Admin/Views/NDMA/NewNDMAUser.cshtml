@@ -1,0 +1,49 @@
+﻿@model DIMS.BAL.EF.NDMAUser
+
+@{
+    ViewBag.Title = "New NDMA User";
+}
+
+<div class="d-flex align-items-center flex-column">
+    <form action="SaveNDMA" method="post">
+        <h2>NDMA User</h2>
+        <table>
+            <tr>
+                <td>First Name</td>
+                <td>@Html.TextBoxFor(model => Model.FirstName, new { @class = "form-control", @required = "required" })</td>
+            </tr>
+            <tr>
+                <td>Last Name</td>
+                <td>@Html.TextBoxFor(model => Model.LastName, new { @class = "form-control", @required = "required" })</td>
+            </tr>
+            <tr>
+                <td>Address1</td>
+                <td>@Html.TextBoxFor(model => Model.Address1, new { @class = "form-control", @required = "required" })</td>
+            </tr>
+            <tr>
+                <td>City</td>
+                <td>@Html.TextBoxFor(model => Model.City, new { @class = "form-control", @required = "required" })</td>
+            </tr>
+            <tr>
+                <td>State</td>
+                <td>@Html.TextBoxFor(model => Model.State, new { @class = "form-control", @required = "required" })</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>@Html.TextBoxFor(model => Model.Email, new { @class = "form-control", @required = "required" })</td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td>@Html.TextBoxFor(model => Model.Password, new { @type = "password", @class = "form-control", @required = "required" })</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" class="btn btn-primary" value="Save" />
+                    @Html.HiddenFor(model => model.NDMAUserID)
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+

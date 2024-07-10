@@ -1,0 +1,31 @@
+﻿@model DIMS.BAL.EF.ReliefInformation
+@{
+    ViewBag.Title = "ReliefInformation";
+}
+
+<h2>ReliefInformation</h2>
+<form action="SaveReliefInformation" method="post" class="Relief_info">
+    <table>
+        <tr>
+            <td>Description: </td>
+            <td>@Html.TextBoxFor(model => Model.Description, new { @class = "form-control", @required="required" })</td>
+        </tr>
+        <tr>
+            <td>Amount: </td>
+            <td>@Html.TextBoxFor(model => Model.Amount, new { @class = "form-control", @required = "required" })</td>
+        </tr>
+        <tr>
+            <td>Date Granted: </td>
+            <td>
+                @Html.TextBoxFor(model => Model.DateGranted, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", @required = "required" })
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input type="submit" class="btn btn-primary" value="Save" />
+                @Html.HiddenFor(model => model.ReliefInformationID)
+            </td>
+        </tr>
+    </table>
+</form>

@@ -1,0 +1,32 @@
+﻿@model List<DIMS.BAL.EF.GeneralUser>
+@{
+    ViewBag.Title = "LstGeneralUsers";
+}
+
+<h2>General Users</h2>
+<table class="table">
+    <tbody>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Active</th>
+            <th>Actions</th>
+        </tr>
+        @foreach (var I in Model)
+        {
+            <tr>
+                <td>@I.UserName</td>
+                <td>@I.Email</td>
+                <td>@I.Phone</td>
+                <td>@I.Active</td>
+                <td>
+                    <a href="@Url.Action("GeneralUsers","GeneralUsers")?GeneralUserID=@I.GeneralUserID">Edit</a><span> | </span>
+                    <a href="@Url.Action("DeleteGeneralUsers","GeneralUsers" )?GeneralUserID=@I.GeneralUserID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

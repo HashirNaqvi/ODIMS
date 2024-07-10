@@ -1,0 +1,35 @@
+﻿@model List<DIMS.BAL.EF.RehabilitationInstitutes>
+@{
+    ViewBag.Title = "LstRehabilitationInstitutes";
+}
+
+<h2>Rehabilitation Institutes</h2>
+<button type="button" class="btn btn-dark text-white" onclick="location.href='@Url.Action("RehabilitationInstitute","RehabilitationInstitutes")'">
+    Add Institute
+</button>
+
+<table class="table">
+    <tbody>
+        <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Email</th>
+            <th>Active</th>
+            <th>Actions</th>
+        </tr>
+        @foreach (var I in Model)
+        {
+            <tr>
+                <td>@I.InstituteName</td>
+                <td>@I.Address</td>
+                <td>@I.Email</td>
+                <td>@I.Active</td>
+                <td>
+                    <a href="@Url.Action("RehabilitationInstitute","RehabilitationInstitutes")?RehabilitationInstituteID=@I.RehabilitationInstituteID">Edit</a><span> | </span>
+                    <a href="@Url.Action("DeleteRehabilitationInstitutes", "RehabilitationInstitutes")?RehabilitationInstituteID=@I.RehabilitationInstituteID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

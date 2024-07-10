@@ -1,0 +1,26 @@
+﻿@model DIMS.BAL.EF.DisasterInformation
+@{
+    ViewBag.Title = "DisasterInformation";
+}
+
+<h2>Disaster Information</h2>
+<button class="btn btn-primary" onclick="location.href='@Url.Action("LstDisasterinformation", "Disasterinformation")'">Back</button>
+<table>
+    <tr>
+        <td>Description: </td>
+        <td>@Html.DisplayFor(model => Model.Description)</td>
+    </tr>
+    <tr>
+        <td>Disaster Date: </td>
+        <td>@Model.DisasterDate.Value.ToString("d")</td>
+    </tr>
+    <tr>
+        <td>Address: </td>
+        <td>@Html.DisplayFor(model => Model.Address)</td>
+    </tr>
+    <tr>
+        <td>Lat/Long: </td>
+        <td>@Html.DisplayFor(model => Model.LatLong)</td>
+    </tr>
+</table>
+

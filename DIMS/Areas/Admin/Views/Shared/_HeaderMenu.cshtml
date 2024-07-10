@@ -1,0 +1,63 @@
+﻿@using DIMS.BAL.Extentions;
+@{
+    var userType = CookieManager.GetCookie(DIMS.BAL.SiteConstants.UserType);
+}
+<ul class="navbar-nav_2 d-flex mb-0 fw-bold">
+    @if (userType == "1")
+    {
+        <li class="nav-item">
+            @Html.ActionLink("Rehabilitation Institutes", "LstRehabilitationInstitutes", "RehabilitationInstitutes", new { area = "Admin" }, new { @class = "navbar-brand" }) ;
+        </li>
+        <li class="nav-item">
+            @Html.ActionLink("Disaster Information", "LstDisasterInformation", "DisasterInformation", new { area = "RehabilitationInstitutes" }, new { @class = "navbar-brand" }) ;
+        </li>
+        <li class="nav-item">
+            @Html.ActionLink("Relief Information", "LstReliefInformation", "ReliefInformation", new { area = "RehabilitationInstitutes" }, new { @class = "navbar-brand" }) ;
+        </li>
+        <li class="nav-item">
+            @Html.ActionLink("Public Messages", "LstPublicMessages", "PublicMessages", new { area = "Admin" }, new { @class = "navbar-brand" }) ;
+        </li>
+        <li class="nav-item">
+            @Html.ActionLink("General Users", "LstGeneralUsers", "GeneralUsers", new { area = "Admin" }, new { @class = "navbar-brand" }) ;
+        </li>
+    }
+    else if (userType == "2")
+    {
+        <li class="nav-item">
+            @Html.ActionLink("Disaster Information", "LstDisasterInformation", "DisasterInformation", new { area = "RehabilitationInstitutes" }, new { @class = "navbar-brand" }) ;
+        </li>
+        <li class="nav-item">
+            @Html.ActionLink("Relief Information", "LstReliefInformation", "ReliefInformation", new { area = "RehabilitationInstitutes" }, new { @class = "navbar-brand" }) ;
+        </li>
+        <li class="nav-item">
+            @Html.ActionLink("Public Messages", "LstPublicMessages", "PublicMessages", new { area = "Admin" }, new { @class = "navbar-brand" }) ;
+        </li>
+    }
+    else if (userType == "3")
+    {
+        <li class="nav-item">
+            @Html.ActionLink("Disaster Information", "LstDisasterInformation", "DisasterInformation", new { area = "RehabilitationInstitutes" }, new { @class = "navbar-brand" }) ;
+        </li>
+        <li class="nav-item">
+            @Html.ActionLink("Public Messages", "LstPublicMessages", "PublicMessages", new { area = "Admin" }, new { @class = "navbar-brand" }) ;
+        </li>
+        <li class="nav-item">
+            @Html.ActionLink("Relief Information", "LstReliefInformation", "ReliefInformation", new { area = "RehabilitationInstitutes" }, new { @class = "navbar-brand" }) ;
+        </li>
+    }
+</ul>
+@if (userType == "1")
+{
+    <span style="color: white; ">Welcome, @CookieManager.GetCookie(DIMS.BAL.SiteConstants.NDMAUserName)!</span>
+    <a href="/Admin/Account/Logout" style="color:white; text-decoration:none; font-size:1.5rem; font-weight:bolder">LogOut</a>
+}
+else if (userType == "2")
+{
+    <span style="color: white; ">Welcome, @CookieManager.GetCookie(DIMS.BAL.SiteConstants.RehabInstituteName)!</span>
+    <a href="/RehabilitationInstitutes/Account/Logout" style="color:white; text-decoration:none; font-size:1.5rem; font-weight:bolder">LogOut</a>
+}
+else if (userType == "3")
+{
+    <span style="color: white; ">Welcome, @CookieManager.GetCookie(DIMS.BAL.SiteConstants.GeneralUserName)!</span>
+    <a href="/GeneralUser/Account/Logout" style="color:white; text-decoration:none; font-size:1.5rem; font-weight:bolder">LogOut</a>
+}

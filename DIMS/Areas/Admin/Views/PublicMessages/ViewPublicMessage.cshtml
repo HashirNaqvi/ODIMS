@@ -1,0 +1,19 @@
+﻿@model DIMS.BAL.EF.PublicMessage
+@{
+    ViewBag.Title = "PublicMessage";
+}
+
+<h2>Public Message</h2>
+<button class="btn btn-primary" onclick="location.href='@Url.Action("LstPublicMessages", "PublicMessages")'">Back</button>
+
+<table>
+
+    <tr>
+        <td>Date Posted:</td>
+        <td>@Model.DatePosted.Value.ToString("d")</td>
+    </tr>
+    <tr>
+        <td>Message:</td>
+        <td>@Html.DisplayFor(model => Model.Message)</td>
+    </tr>
+</table>

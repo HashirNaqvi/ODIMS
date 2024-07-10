@@ -1,0 +1,44 @@
+﻿@model List<DIMS.BAL.EF.ReliefInformation>
+@using DIMS.BAL.Extentions;
+@{
+    ViewBag.Title = "LstReliefInformation";
+    var userType = CookieManager.GetCookie(DIMS.BAL.SiteConstants.UserType);
+}
+<h2>Relief Information</h2>
+@if (userType != "3")
+{
+    <button type="button" class="btn btn-dark text-white" onclick="location.href='@Url.Action("ReliefInformation", "ReliefInformation")'">
+        Add ReliefInformation
+    </button>
+}
+<table class="table">
+    <tbody>
+        <tr>
+            <th>Description</th>
+            <th>Amount</th>
+            <th>Date Granted</th>
+            <td>Actions</td>
+        </tr>
+        @foreach (var I in Model)
+        {
+            <tr>
+                <td>@I.Description</td>
+                <td>@I.Amount</td>
+                <td>@(I.DateGranted?.ToString("MM/dd/yyyy"))</td>
+                <td>
+                    @if (userType != "3")
+                    {
+                        <a href="@Url.Action("ReliefInformation","ReliefInformation")?ReliefInformationID=@I.ReliefInformationID">Edit</a> <span> | </span>
+                        <a href="@Url.Action("DeleteReliefInformation", "ReliefInformation")?ReliefInformationID=@I.ReliefInformationID">Delete</a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("ViewReliefInformation", "ReliefInformation")?ReliefInformationID=@I.ReliefInformationID">View</a>
+                    }
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

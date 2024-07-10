@@ -1,0 +1,26 @@
+﻿@model DIMS.BAL.EF.NDMAUser
+@{
+    ViewBag.Title = "Login";
+}
+<div class="ndma_login aline-items-center mt-20">
+    <form action="AuthenticateLogin" method="post" >
+        <h2>NDMA Login</h2>
+        <table>
+            <tr>
+                <td>Email</td>
+                <td>@Html.TextBoxFor(model => Model.Email, new { @class = "form-control" })</td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td>@Html.TextBoxFor(model => Model.Password, new { @type = "password" , @class = "form-control"  })</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit"class="btn btn-primary" value="Login" />
+                </td>
+            </tr>
+        </table>
+    </form>
+
+</div>

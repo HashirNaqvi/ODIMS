@@ -1,0 +1,95 @@
+﻿html body {
+    height:  100%;
+    background-color:antiquewhite;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 5px;
+    padding-right: 5px;
+    margin:0;
+}
+body-content footer{
+    display: flex;
+    justify-content:center;
+}
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+.carousel-item active{
+    width:100vw;
+    height:100vh;
+}
+
+/* */
+.container{
+    margin:0;
+}
+
+/*Rehab registration*/
+.navbar-nav_1 ul li{
+    font-size: 1.5rem;
+    font-weight: bolder;
+}
+#rehab_reglogo{
+    font-size:1.5rem;
+    font-weight:bolder;
+}
+
+.rehab_registration {
+    height: 100vh;
+    width: 100%;
+    background-image: url(/images/pexels-parij-photography-1667240.jpg);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+}
+    .rehab_registration h2{
+        align-items: center;
+        justify-content:center;
+    }
+    .rehab_footer {
+        width: 100%;
+    }
+    /*Relief informationn form*/
+
+/*Admin area */
+#admin_area{
+    background-color: antiquewhite;
+    width: 100vw;
+    height:100vh;
+}
+/*NDMA Login*/
+.ndma_login {
+    display: flex;
+    /*align-content: stretch;
+    flex-wrap: wrap;
+    flex-direction: column;*/
+    align-items: center;
+    justify-content:center;
+}
+#Admin_links {
+    text-decoration: none;
+    color: white;
+}
+.btn{
+    margin-bottom: 5px;
+    text-decoration: none;
+}
+    .btn a{
+        text-decoration: none;
+        color: white;
+    }
+
+    footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+    }
+

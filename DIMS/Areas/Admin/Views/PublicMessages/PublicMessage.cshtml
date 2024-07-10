@@ -1,0 +1,27 @@
+﻿@model DIMS.BAL.EF.PublicMessage
+@{
+    ViewBag.Title = "PublicMessage";
+}
+
+<h2>Public Message</h2>
+<form action="SavePublicMessage" method="post">
+    <table>
+
+        <tr>
+            <td>Date Posted</td>
+            <td>@Html.TextBoxFor(model => Model.DatePosted, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", @required = "required" })</td>
+        </tr>
+        <tr>
+            <td>Message</td>
+            <td>@Html.TextAreaFor(model => Model.Message, new { @class = "form-control", @required="required" })</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input type="submit" class="btn btn-primary" value="Save" />
+                @Html.HiddenFor(model => model.PublicMessageID)
+            </td>
+        </tr>
+    </table>
+</form>
+
